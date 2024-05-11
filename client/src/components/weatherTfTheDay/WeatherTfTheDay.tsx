@@ -56,7 +56,7 @@ interface Prop {
 export const WeatherOfTheDay: React.FC<Prop> = ({ city }) => {
 
 	const todayForecast = cityWeather.departmentList[0].extendedForecastList[0];
-    
+
     /* const [todayForecast, setTodayForecast] = useState({})
 
     useEffect(() => {
@@ -64,7 +64,7 @@ export const WeatherOfTheDay: React.FC<Prop> = ({ city }) => {
     }, [city]) */
     
 	return (
-		<div>
+		<div >
 			<div>
 				<Image
 					src={"/home-icono.png"}

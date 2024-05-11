@@ -2,22 +2,70 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+const cityWeather = {
+	cod: "200",
+	message: 0,
+	departmentList: [
+		{
+			id: 11,
+			name: "Central",
+			population: 1866562,
+			coordinates: {
+				lat: -25.380646,
+				lon: -57.602323,
+			},
+
+			extendedForecastList: [
+				{
+					dateTimeTxt: "2024-05-11 06:00:00",
+					dayText: "hoy",
+					mainInfo: {
+						temp: 21.34,
+						tempMin: 21.34,
+						tempMax: 30.24,
+						humidity: 100,
+					},
+					weather: [
+						{
+							id: 1,
+							type: "rain",
+							description: "lluvia",
+						},
+					],
+					wind: {
+						speed: 40.05,
+						direction: 66,
+					},
+					visibility: 5000,
+					precipitationProbability: 0.99,
+					rain: {
+						volume1h: 0.4,
+					},
+				},
+
+				// Other forecast objects...
+			],
+		},
+	],
+};
+
 interface Prop {
-	cityWeather: object;
+	city: object;
 }
 
-export const WeatherOfTheDay: React.FC<Prop> = ({ cityWeather }) => {
+export const WeatherOfTheDay: React.FC<Prop> = ({ city }) => {
+	const todayForecast = cityWeather.departmentList[0].extendedForecastList[0];
 
-	const [todayForecast, setTodayForecast] = useState({})
+	/* const [todayForecast, setTodayForecast] = useState({})
 
     useEffect(() => {
         setTodayForecast(cityWeather.departmentList[0].extendedForecastList[0];)
-    }, [cityWeather])
+    }, [city]) */
 
 	return (
 		<div className="flex w-full item-center justify-center">
 			<div
-				className="p-4"
+				className="p-6"
 				style={{ background: "#CFD4FE", borderRadius: 16 }}
 			>
 				<div className="flex gap-2 item-center">

@@ -26,6 +26,7 @@ export default function Home() {
 			console.log(error);
 		}
 	};
+
 	return (
 		<main>
 			<div className="flex item-center w-full justify-evenly p-4">
@@ -78,7 +79,7 @@ export default function Home() {
 				</div>
 			</div>
 
-			<WeatherOfTheDay cityWeather={{ hola: "hola" }} />
+			<WeatherOfTheDay city={{ hola: "hola" }} />
 		</main>
 	);
 }

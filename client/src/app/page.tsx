@@ -1,6 +1,30 @@
+"use client"
+import axios from "axios";
 import Image from "next/image";
+import { useState } from "react";
+import { apiUrl } from "./services/config";
 
 export default function Home() {
+  const [searchDepart, setSearchDepart] = useState<string>("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  const [isFarheneit, setIsFarheneit] = useState<boolean>(false);
+
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e?.preventDefault();
+	handleSearchDepartment();
+  };
+
+  const handleSearchDepartment = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/departamentos/search/${searchDepart}`);
+      const results = await response.data;
+      setSearchResults(results);
+    } catch (error) {
+      console.log(error);
+    }
+  }; 
   return (
     <main>
       <div className="flex item-center w-full justify-evenly p-4">
@@ -8,15 +32,25 @@ export default function Home() {
           <h1>LOGO</h1>
           <h1>AQUÍ</h1>
         </div>
-        <div className="border-2 border-black p-2">
-          <input type="text" placeholder="Buscar ubicación" />
-          <button className="item-center w-" type="submit">
+        <form
+          onSubmit={handleSubmit}
+          className="border-2 border-black p-2 w-2/6 flex justify-between"
+        >
+          <input
+            className="focus:outline-none"
+            type="text"
+            placeholder="Buscar ubicación"
+            value={searchDepart}
+			onChange={(e) => setSearchDepart(e.target.value)}
+          />
+          <button className="item-center" type="submit">
             <Image src="/search.png" alt="Search" width="20" height="20" />
           </button>
-        </div>
-        <div>
-          <button>C</button>
-          <button>F</button>
+        </form>
+		
+        <div className="w-1/12 text-center border-black flex border rounded-3xl">
+          <button className={`rounded-l-3xl border-black flex-1 ${!isFarheneit ? 'shadow-inner bg-gray-300':''}`} onClick={(e) => setIsFarheneit(false)}>C</button>
+          <button className={`rounded-r-3xl border-black flex-1 ${isFarheneit ? 'shadow-inner bg-gray-300':''}`} onClick={(e) => setIsFarheneit(true)}>F</button>
         </div>
       </div>
     </main>

@@ -1,8 +1,17 @@
 const express = require('express');
 const { Request, Response } = require('express');
 const jsonDB = require('./db.json');
-
+cors = require('cors');
 const app = express();
+
+//setting cors 
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200
+}
+
+app.use(cors(corsOptions))
 
 app.get('/api/departamentos', (req, res) => {
   const departamentos = jsonDB.departamento_list || [];

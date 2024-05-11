@@ -1,14 +1,17 @@
 "use client";
 import axios from "axios";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { apiUrl } from "./services/config";
 import { WeatherOfTheDay } from "@/components/weatherTfTheDay/WeatherTfTheDay";
+import { DepartamentosComponent } from "@/components/departamentosOptions/departamentosOptions";
 
 export default function Home() {
 	const [searchDepart, setSearchDepart] = useState<string>("");
 	const [searchResults, setSearchResults] = useState([]);
 	const [isFarheneit, setIsFarheneit] = useState<boolean>(false);
+  const [selectedDepartamento, setSelectedDepartamento] = useState<any>(null);
+  const [allDepartamentos, setAllDepartamentos] = useState<any>([]);
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e?.preventDefault();
@@ -26,6 +29,27 @@ export default function Home() {
 			console.log(error);
 		}
 	};
+
+	const fetchAllDepartamentos = async () => {
+		try {
+			const response = await axios.get(
+				`${apiUrl}/departamentos`
+			);
+			const results = await response.data;
+			setAllDepartamentos(results);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+
+  useEffect(() => {
+    fetchAllDepartamentos();
+  }, []);
+  
+  const selectDepartamento = (departamento: any) => {
+    setSelectedDepartamento(departamento);
+  }
 
 	return (
 		<main>
@@ -80,6 +104,7 @@ export default function Home() {
 			</div>
 
 			<WeatherOfTheDay city={{ hola: "hola" }} />
+      <DepartamentosComponent departamentos={allDepartamentos} selectDepartamento={selectDepartamento} />
 		</main>
 	);
 }

@@ -10,4 +10,4 @@ Natalia Delgado                                 natdelgadodev@gmail.com
 -Herramientas de programación utilizadas:
 React
 Next.js
-
+Tailwind

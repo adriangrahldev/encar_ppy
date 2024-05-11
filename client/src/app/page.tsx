@@ -3,6 +3,7 @@ import axios from "axios";
 import Image from "next/image";
 import { useState } from "react";
 import { apiUrl } from "./services/config";
+import { WeatherOfTheDay } from "@/components/weatherTfTheDay/WeatherTfTheDay";
 
 export default function Home() {
   const [searchDepart, setSearchDepart] = useState<string>("");
@@ -66,6 +67,9 @@ export default function Home() {
           </button>
         </div>
       </div>
+
+      <WeatherOfTheDay city={{hola:"hola"}}/>
+
     </main>
   );
 }

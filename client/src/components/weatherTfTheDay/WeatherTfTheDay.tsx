@@ -1,4 +1,6 @@
+"use client"
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 const cityWeather = {
 	cod: "200",
@@ -52,9 +54,15 @@ interface Prop {
 }
 
 export const WeatherOfTheDay: React.FC<Prop> = ({ city }) => {
-    
-	const todayForecast = cityWeather.departmentList[0].extendedForecastList[0];
 
+	const todayForecast = cityWeather.departmentList[0].extendedForecastList[0];
+    
+    /* const [todayForecast, setTodayForecast] = useState({})
+
+    useEffect(() => {
+        setTodayForecast(cityWeather.departmentList[0].extendedForecastList[0];)
+    }, [city]) */
+    
 	return (
 		<div>
 			<div>
@@ -66,7 +74,9 @@ export const WeatherOfTheDay: React.FC<Prop> = ({ city }) => {
 				/>
 				<p> - {cityWeather.departmentList[0].name}</p>
 			</div>
+
 			<p>HOY, Sábado </p>
+
 			<p>{todayForecast.dateTimeTxt.substring(0, 10)}</p>
 
 			<h2>{todayForecast.mainInfo.temp}ºC</h2>

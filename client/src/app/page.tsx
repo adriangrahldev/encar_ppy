@@ -66,13 +66,15 @@ export default function Home() {
 					onSubmit={handleSubmit}
 					className="border-2 border-black p-2 w-2/6 flex justify-between"
 				>
-					<input
-						className="focus:outline-none"
-						type="text"
-						placeholder="Buscar ubicación"
-						value={searchDepart}
-						onChange={(e) => setSearchDepart(e.target.value)}
-					/>
+					<div className="flex items-center relative">
+            <input
+              className="focus:outline-none"
+              type="text"
+              placeholder="Buscar ubicación"
+              value={searchDepart}
+              onChange={(e) => setSearchDepart(e.target.value)}
+            />
+          </div>
 					<button className="item-center" type="submit">
 						<Image
 							src="/search.png"
@@ -103,7 +105,7 @@ export default function Home() {
 				</div>
 			</div>
 
-			<WeatherOfTheDay city={{ hola: "hola" }} />
+			<WeatherOfTheDay departamento={selectedDepartamento} />
       <DepartamentosComponent departamentos={allDepartamentos} selectDepartamento={selectDepartamento} />
 		</main>
 	);

@@ -2,65 +2,17 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const cityWeather = {
-	cod: "200",
-	message: 0,
-	departmentList: [
-		{
-			id: 11,
-			name: "Central",
-			population: 1866562,
-			coordinates: {
-				lat: -25.380646,
-				lon: -57.602323,
-			},
-
-			extendedForecastList: [
-				{
-					dateTimeTxt: "2024-05-11 06:00:00",
-					dayText: "hoy",
-					mainInfo: {
-						temp: 21.34,
-						tempMin: 21.34,
-						tempMax: 30.24,
-						humidity: 100,
-					},
-					weather: [
-						{
-							id: 1,
-							type: "rain",
-							description: "lluvia",
-						},
-					],
-					wind: {
-						speed: 40.05,
-						direction: 66,
-					},
-					visibility: 5000,
-					precipitationProbability: 0.99,
-					rain: {
-						volume1h: 0.4,
-					},
-				},
-
-				// Other forecast objects...
-			],
-		},
-	],
-};
 
 interface Prop {
-	city: object;
+	departamento: any;
 }
 
-export const WeatherOfTheDay: React.FC<Prop> = ({ city }) => {
-	const todayForecast = cityWeather.departmentList[0].extendedForecastList[0];
-
-	/* const [todayForecast, setTodayForecast] = useState({})
+export const WeatherOfTheDay: React.FC<Prop> = ({ departamento }) => {
+	 const [todayForecast, setTodayForecast] = useState(departamento?.pronostico_extendido_list)
 
     useEffect(() => {
-        setTodayForecast(cityWeather.departmentList[0].extendedForecastList[0];)
-    }, [city]) */
+        setTodayForecast(departamento?.pronostico_extendido_list[0])
+    }, [departamento]) 
 
 	return (
 		<div className="flex w-full item-center justify-center">
@@ -75,14 +27,14 @@ export const WeatherOfTheDay: React.FC<Prop> = ({ city }) => {
 						height={25}
 						alt="home icon"
 					/>
-					<p> - Asucion {cityWeather.departmentList[0].name}</p>
+					<p> - {departamento?.nombre}</p>
 				</div>
 
 				<p>HOY, Sábado </p>
 
-				<p>{todayForecast.dateTimeTxt.substring(0, 10)}</p>
+				<p>{todayForecast?.fecha_hora_txt.split("")[0]}</p>
 
-				<h2 style={{ fontSize: "2em" }}>{todayForecast.mainInfo.temp}ºC</h2>
+				<h2 style={{ fontSize: "2em" }}>{todayForecast?.main.temp}ºC</h2>
 
 				<h3>Estado del tiempo</h3>
 
@@ -91,11 +43,11 @@ export const WeatherOfTheDay: React.FC<Prop> = ({ city }) => {
 				</div>
 
 				<div className="flex gap-2">
-					<p>Viento {todayForecast.wind.speed} km/h</p>
+					<p>Viento {todayForecast?.viento.velocidad} km/h</p>
 					<p>|</p>
-					<p>Humedad {todayForecast.mainInfo.humidity}%</p>
+					<p>Humedad {todayForecast?.main.humedad}%</p>
 					<p>|</p>
-					<p>Precipitación {todayForecast.rain.volume1h} mm/h</p>
+					<p>Precipitación {todayForecast?.lluvia.volumen_1h} mm/h</p>
 				</div>
 			</div>
 		</div>
